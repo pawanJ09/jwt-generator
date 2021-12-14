@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+
+    <Appenders>
+        <!--<File name="FILE" fileName="logfile.log" append="true">
+            <PatternLayout
+                    pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss,SSS} | [%t] %C{2} (%F:%L) - %m%n"/>
+        </File>-->
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{MM.dd.yyyy HH:mm:ss,SSS}] [%t] %p: %c.%M() - %m%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="org.codehaus.jackson" level="WARN"/>
+        <Logger name="com.generator.jwt" level="${env:LOG_LEVEL:-WARN}" additivity="false">
+            <!--<AppenderRef ref="FILE"/>-->
+            <AppenderRef ref="${env:LOG_APPENDER:-STDOUT}"/>
+        </Logger>
+
+        <Root level="WARN" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+    </Loggers>
+
+</Configuration>
