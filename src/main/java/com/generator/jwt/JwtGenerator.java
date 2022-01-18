@@ -2,10 +2,15 @@ package com.generator.jwt;
 
 import com.generator.jwt.util.Constants;
 import com.generator.jwt.util.GlobalProps;
+import com.nimbusds.jose.jwk.JWK;
+import com.nimbusds.jose.jwk.RSAKey;
 import java.io.FileInputStream;
 import java.security.KeyStore;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.Signature;
+import java.security.cert.Certificate;
+import java.security.interfaces.RSAPublicKey;
 import java.text.MessageFormat;
 import java.util.Objects;
 import org.apache.commons.codec.binary.Base64;
@@ -105,6 +110,11 @@ public class JwtGenerator {
         PrivateKey privateKey = (PrivateKey) keystore.getKey(
             globalProps.getEnv().get(Constants.KEYSTORE_ALIAS),
             globalProps.getEnv().get(Constants.KEYSTORE_PASSWORD).toCharArray());
+        Certificate cert = keystore.getCertificate(
+            globalProps.getEnv().get(Constants.KEYSTORE_ALIAS));
+        PublicKey publicKey = cert.getPublicKey();
+        JWK jwk = new RSAKey.Builder((RSAPublicKey) publicKey).privateKey(privateKey).build();
+        log.debug("JWK Generated {}", jwk.toJSONString());
         //Sign the JWT Header + "." + JWT Claims Object
         Signature signature = Signature.getInstance("SHA256withRSA");
         signature.initSign(privateKey);
