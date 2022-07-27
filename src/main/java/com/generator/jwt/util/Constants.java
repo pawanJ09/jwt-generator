@@ -7,13 +7,13 @@ package com.generator.jwt.util;
  */
 public class Constants {
 
-  public static final String CLIENT_ID = "CLIENT_ID";
+  public static final String CLIENT_ID = "WORKDAY_CLIENT_ID";
 
-  public static final String ISU_NAME = "ISU_NAME";
+  public static final String ISU_NAME = "WORKDAY_ISU_NAME";
 
-  public static final String AUD = "AUD";
+  public static final String AUD = "WORKDAY_AUD";
 
-  public static final String JWT_EXPIRE = "JWT_EXPIRE";
+  public static final String JWT_EXPIRE = "WORKDAY_JWT_EXPIRE";
 
   public static final int JWT_EXPIRE_DEFAULT = 300;
 
